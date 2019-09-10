@@ -6,7 +6,7 @@
 /*   By: rgwayne- <rgwayne-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/08 14:32:29 by rgwayne-          #+#    #+#             */
-/*   Updated: 2019/09/08 21:23:56 by rgwayne-         ###   ########.fr       */
+/*   Updated: 2019/09/10 20:46:23 by rgwayne-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,17 @@
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
-#define WT 1000
-#define HT 1000
+#define WT 700
+#define HT 700
+
+typedef struct s_image
+{
+    void *img_ptr;
+    int *data;
+    int line_size;
+    int bits_per_pixel;
+    int end;
+}              t_image;
 
 typedef struct  s_color
 {
@@ -62,9 +71,11 @@ typedef struct s_max
 
 typedef struct s_global
 {
+    int x;
+    int y;
     void *mlx_ptr;
     void *win_ptr;
-    void *img_ptr;
+    t_image img;
     double zoom;
     int max_iter;
     double t;
@@ -75,12 +86,14 @@ typedef struct s_global
     t_factor factor;
     t_color clr;
     t_c c;
+    int fract;
 }              t_glob;
 
 int ft_exit(int flag);
 void close_window(int key);
-t_glob *mandelbrot(t_glob *fr);
+int mandelbrot(t_glob *fr);
 t_complex init_complex(double re, double im);
 int other_keys(int key, t_glob *fractal);
+int mouse_keys(int key, int x, int y, t_glob *fractal);
 
 #endif
