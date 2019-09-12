@@ -6,7 +6,7 @@
 /*   By: rgwayne- <rgwayne-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/08 15:48:51 by rgwayne-          #+#    #+#             */
-/*   Updated: 2019/09/10 23:41:26 by rgwayne-         ###   ########.fr       */
+/*   Updated: 2019/09/12 19:06:26 by rgwayne-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,23 +21,35 @@ int mouse_keys(int key, int x, int y, t_glob *fr)
 	re = ((fr->max.re - fr->min.re) * 0.1);
 	if (key == 4)
 	{
-		fr->min.im -= im * (1 - (double)y / HT);
-		fr->max.im += im * ((double)y / HT);
-		fr->min.re -= im * (1 - (double)x/ WT);
-		fr->max.re += im * ((double)x / WT);
+		fr->min.im += im * (1 - (double)y / HT);
+		fr->max.im -= im * ((double)y / HT);
+		fr->min.re += im * ((double)x/ WT);
+		fr->max.re -= im * (1 - (double)x / WT);
 		mlx_clear_window(fr->mlx_ptr, fr->win_ptr);
 		mandelbrot(fr);
 	}
 	if (key == 5)
 	{
-		fr->min.im += im * (1 - (double)y / HT);
-		fr->max.im -= im * ((double)y / HT);
-		fr->min.re += im * (1 - (double)x/ WT);
-		fr->max.re -= im * ((double)x / WT);
+		fr->min.im -= im * (1 - (double)y / HT);
+		fr->max.im += im * ((double)y / HT);
+		fr->min.re -= im * ((double)x/ WT);
+		fr->max.re += im * (1 - (double)x / WT);
 		mlx_clear_window(fr->mlx_ptr, fr->win_ptr);
 		mandelbrot(fr);
 	}
 	return (0);
+}
+
+void mouse_move(int x, int y, t_glob *fr)
+{
+	if (fr->flag == 2)
+	{
+    	fr->julia = init_complex(
+    	4 * ((double)x / WT - 0.5),
+    	4 * ((double)(HT - y) / HT - 0.5));
+		mlx_clear_window(fr->mlx_ptr, fr->win_ptr);
+	}
+    julia(fr);
 }
 
 int other_keys(int key, t_glob *fractal)
