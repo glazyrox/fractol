@@ -6,7 +6,7 @@
 /*   By: rgwayne- <rgwayne-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/08 14:35:28 by rgwayne-          #+#    #+#             */
-/*   Updated: 2019/09/10 20:29:45 by rgwayne-         ###   ########.fr       */
+/*   Updated: 2019/09/10 23:05:29 by rgwayne-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ t_glob *get_fractal(char *name)
     fl->max.re = 2.0;
     fl->min.im = -2.0;
     fl->max.im = fl->min.im + (fl->max.re - fl->min.re) * HT / WT;
-    fl->zoom = 1;
+    // fl->zoom = 1;
     fl->max_iter = 100;
     fl->factor.re = (fl->max.re - fl->min.re) / (WT - 1);
     fl->factor.im = (fl->max.im - fl->min.im) / (HT - 1);

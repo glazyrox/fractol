@@ -6,7 +6,7 @@
 /*   By: rgwayne- <rgwayne-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/08 14:32:29 by rgwayne-          #+#    #+#             */
-/*   Updated: 2019/09/10 20:46:23 by rgwayne-         ###   ########.fr       */
+/*   Updated: 2019/09/10 22:00:57 by rgwayne-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,12 @@ typedef struct s_max
 
 typedef struct s_global
 {
+    double prex;
+    double prey;
     int x;
+    double x1;
     int y;
+    double y1;
     void *mlx_ptr;
     void *win_ptr;
     t_image img;

@@ -6,7 +6,7 @@
 /*   By: rgwayne- <rgwayne-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/08 15:48:51 by rgwayne-          #+#    #+#             */
-/*   Updated: 2019/09/10 19:39:01 by rgwayne-         ###   ########.fr       */
+/*   Updated: 2019/09/10 23:41:26 by rgwayne-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,27 @@
 
 int mouse_keys(int key, int x, int y, t_glob *fr)
 {
+	double re;
+	double im;
+
+	im = ((fr->max.im - fr->min.im) * 0.1);
+	re = ((fr->max.re - fr->min.re) * 0.1);
 	if (key == 4)
 	{
-		fr->zoom += 0.4;
-		printf("SUP %fl\n", fr->zoom);
+		fr->min.im -= im * (1 - (double)y / HT);
+		fr->max.im += im * ((double)y / HT);
+		fr->min.re -= im * (1 - (double)x/ WT);
+		fr->max.re += im * ((double)x / WT);
 		mlx_clear_window(fr->mlx_ptr, fr->win_ptr);
 		mandelbrot(fr);
 	}
 	if (key == 5)
 	{
-		printf("SDOWN %fl\n", fr->zoom);
+		fr->min.im += im * (1 - (double)y / HT);
+		fr->max.im -= im * ((double)y / HT);
+		fr->min.re += im * (1 - (double)x/ WT);
+		fr->max.re -= im * ((double)x / WT);
 		mlx_clear_window(fr->mlx_ptr, fr->win_ptr);
-		if (fr->zoom > 0.4)
-			fr->zoom -= 0.4;
 		mandelbrot(fr);
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: rgwayne- <rgwayne-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/08 17:46:55 by rgwayne-          #+#    #+#             */
-/*   Updated: 2019/09/10 20:35:02 by rgwayne-         ###   ########.fr       */
+/*   Updated: 2019/09/10 23:28:29 by rgwayne-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,22 +33,25 @@ int mandelbrot(t_glob *fl)
     int i;
     t_complex min;
     t_complex z;
+    double step_i;
+    double step_r;
     
+    step_i = ((fl->max.im - fl->min.im) / HT);
+    step_r = ((fl->max.re - fl->min.re) / WT);
     fl->y = 0;
     while (fl->y++ < HT)
     {
         fl->x = 0;
         while (fl->x++ < WT)
         {
-            fl->c.re = (fl->min.re + fl->x * fl->factor.re) / (fl->zoom);
-            fl->c.im = (fl->max.im - fl->y * fl->factor.im) / (fl->zoom);
+            fl->c.im = fl->max.im - step_i * fl->y;
+            fl->c.re = fl->min.re + step_r * fl->x;
             z = init_complex(fl->c.re, fl->c.im);
             i = 0;
             while (pow(z.re, 2.0) + pow(z.im, 2.0) <= 4 && i++ < fl->max_iter)
                 z = init_complex(pow(z.re, 2.0) - pow(z.im, 2.0) + fl->c.re,
                 2.0 * z.re * z.im + fl->c.im);
             put_pixel_to_img(fl->x, fl->y, fl, ft_colorize(fl, i));
-            // mlx_pixel_put(fl->mlx_ptr, fl->win_ptr, fl->x, fl->y, ft_colorize(fl, i));
         }
     }
     mlx_put_image_to_window(fl->mlx_ptr, fl->win_ptr, fl->img.img_ptr, 0, 0);
