@@ -6,20 +6,26 @@
 /*   By: rgwayne- <rgwayne-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/08 14:32:29 by rgwayne-          #+#    #+#             */
-/*   Updated: 2019/09/12 19:05:06 by rgwayne-         ###   ########.fr       */
+/*   Updated: 2019/09/13 19:21:36 by rgwayne-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FRACTOL_H
 #define FRACTOL_H
 
-#include "mlx.h"
+#include "minilibx_macos/mlx.h"
 #include "libft/includes/libft.h"
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <pthread.h>
 #define WT 700
 #define HT 700
+#define THREAD_NUMBER 8
+#define UP					126
+#define DOWN				125
+#define LEFT_ARR			123
+#define RIGHT_ARR			124
 
 typedef struct s_image
 {
@@ -71,6 +77,8 @@ typedef struct s_max
 
 typedef struct s_global
 {
+    int prb;
+    char *name;
     int flag;
     double prex;
     double prey;
@@ -87,6 +95,8 @@ typedef struct s_global
     t_complex	move;
     t_min min;
     t_max max;
+    int ymin;
+    int ymax;
     t_factor factor;
     t_color clr;
     t_c c;
@@ -98,12 +108,15 @@ int ft_colorize(t_glob *fl, int i);
 void    put_pixel_to_img(int x, int y, t_glob *fl, int color);
 int ft_exit(int flag);
 void close_window(int key);
-int mandelbrot(t_glob *fr);
+void mandelbrot(t_glob *fr);
 t_complex init_complex(double re, double im);
 int other_keys(int key, t_glob *fractal);
 int mouse_keys(int key, int x, int y, t_glob *fractal);
-int burningship(t_glob *fl);
-int julia(t_glob *fl);
+void burningship(t_glob *fl);
+void julia(t_glob *fl);
 void mouse_move(int x, int y, t_glob *fr);
+void ft_launch_fractol(t_glob *fr);
+void *ft_name(void *inc);
+void move_arr(int key, t_glob *fr);
 
 #endif

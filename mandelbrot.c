@@ -6,7 +6,7 @@
 /*   By: rgwayne- <rgwayne-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/08 17:46:55 by rgwayne-          #+#    #+#             */
-/*   Updated: 2019/09/12 19:00:31 by rgwayne-         ###   ########.fr       */
+/*   Updated: 2019/09/13 17:30:55 by rgwayne-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,14 @@ void    put_pixel_to_img(int x, int y, t_glob *fl, int color)
 int ft_colorize(t_glob *fl, int i)
 {
     fl->t = (double)i / fl->max_iter;
-    fl->clr.r = (char)(9 * (1 - fl->t) * pow(fl->t, 3) * 255);
-    fl->clr.g = (char)(15 * pow((1 - fl->t), 2) * pow(fl->t, 2) * 255);
+    fl->clr.r = (char)(9 * (1 - fl->t) * pow(fl->t, 3) * 221);
+    fl->clr.g = (char)(15 * pow((1 - fl->t), 2) * pow(fl->t, 2) * 160);
     fl->clr.b = (char)(8.5 * pow((1 - fl->t), 3) * fl->t * 0);
-    fl->clr.color = (fl->clr.g << fl->per_bits) + (fl->clr.b) + (fl->clr.r << fl->per_bits);
+    fl->clr.color = (fl->clr.r << fl->prb) + (fl->clr.g << fl->per_bits) + (fl->clr.b << fl->prb);
     return (fl->clr.color);
 }
 
-int mandelbrot(t_glob *fl)
+void mandelbrot(t_glob *fl)
 {
     int i;
     t_complex z;
@@ -37,8 +37,8 @@ int mandelbrot(t_glob *fl)
     
     step_i = ((fl->max.im - fl->min.im) / HT);
     step_r = ((fl->max.re - fl->min.re) / WT);
-    fl->y = 0;
-    while (fl->y++ < HT)
+    fl->y = fl->ymin;
+    while (fl->y++ < fl->ymax)
     {
         fl->x = 0;
         while (fl->x++ < WT)
@@ -53,6 +53,4 @@ int mandelbrot(t_glob *fl)
             put_pixel_to_img(fl->x, fl->y, fl, ft_colorize(fl, i));
         }
     }
-    mlx_put_image_to_window(fl->mlx_ptr, fl->win_ptr, fl->img.img_ptr, 0, 0);
-    return (i);
 }

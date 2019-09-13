@@ -6,13 +6,13 @@
 /*   By: rgwayne- <rgwayne-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/12 15:39:11 by rgwayne-          #+#    #+#             */
-/*   Updated: 2019/09/12 19:05:34 by rgwayne-         ###   ########.fr       */
+/*   Updated: 2019/09/13 17:27:17 by rgwayne-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-int julia(t_glob *fl)
+void julia(t_glob *fl)
 {
     int i;
     t_complex z;
@@ -22,7 +22,7 @@ int julia(t_glob *fl)
     step_i = ((fl->max.im - fl->min.im) / HT);
     step_r = ((fl->max.re - fl->min.re) / WT);
     fl->y = 0;
-    while (fl->y++ < HT)
+    while (fl->y++ < fl->ymax)
     {
         fl->x = 0;
         while (fl->x++ < WT)
@@ -37,7 +37,4 @@ int julia(t_glob *fl)
             put_pixel_to_img(fl->x, fl->y, fl, ft_colorize(fl, i));
         }
     }
-    fl->flag = 2;
-    mlx_put_image_to_window(fl->mlx_ptr, fl->win_ptr, fl->img.img_ptr, 0, 0);
-    return (i);
 }

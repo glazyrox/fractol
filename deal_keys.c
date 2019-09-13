@@ -6,7 +6,7 @@
 /*   By: rgwayne- <rgwayne-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/08 15:48:51 by rgwayne-          #+#    #+#             */
-/*   Updated: 2019/09/12 19:06:26 by rgwayne-         ###   ########.fr       */
+/*   Updated: 2019/09/13 19:16:19 by rgwayne-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,6 @@ int mouse_keys(int key, int x, int y, t_glob *fr)
 		fr->max.im -= im * ((double)y / HT);
 		fr->min.re += im * ((double)x/ WT);
 		fr->max.re -= im * (1 - (double)x / WT);
-		mlx_clear_window(fr->mlx_ptr, fr->win_ptr);
-		mandelbrot(fr);
 	}
 	if (key == 5)
 	{
@@ -34,55 +32,77 @@ int mouse_keys(int key, int x, int y, t_glob *fr)
 		fr->max.im += im * ((double)y / HT);
 		fr->min.re -= im * ((double)x/ WT);
 		fr->max.re += im * (1 - (double)x / WT);
-		mlx_clear_window(fr->mlx_ptr, fr->win_ptr);
-		mandelbrot(fr);
 	}
+	mlx_clear_window(fr->mlx_ptr, fr->win_ptr);
+	ft_launch_fractol(fr);
 	return (0);
 }
 
 void mouse_move(int x, int y, t_glob *fr)
 {
-	if (fr->flag == 2)
-	{
-    	fr->julia = init_complex(
-    	4 * ((double)x / WT - 0.5),
-    	4 * ((double)(HT - y) / HT - 0.5));
-		mlx_clear_window(fr->mlx_ptr, fr->win_ptr);
-	}
-    julia(fr);
+	fr->julia = init_complex(
+    4 * ((double)x / WT - 0.5),
+    4 * ((double)(HT - y) / HT - 0.5));
+	mlx_clear_window(fr->mlx_ptr, fr->win_ptr);
+	ft_launch_fractol(fr);
 }
 
 int other_keys(int key, t_glob *fractal)
 {
 	if (key == 6)
 	{
-		printf("not so deep %d\n", fractal->max_iter);
-		mlx_clear_window(fractal->mlx_ptr, fractal->win_ptr);
 		fractal->max_iter -= 10;
-		mandelbrot(fractal);
 	}
 	if (key == 7)
 	{
-		printf("so deep, baby %d\n", fractal->max_iter);
-		mlx_clear_window(fractal->mlx_ptr, fractal->win_ptr);
 		fractal->max_iter += 10;
-		mandelbrot(fractal);
 	}
 	if (key == 8)
 	{
-		printf("color: %d\n", fractal->per_bits);
-		mlx_clear_window(fractal->mlx_ptr, fractal->win_ptr);
 		fractal->per_bits += 2;
-		mandelbrot(fractal);
+		fractal->prb += 1;
 	}
 	if (key == 9)
 	{
-		printf("color: %d\n", fractal->per_bits);
-		mlx_clear_window(fractal->mlx_ptr, fractal->win_ptr);
 		fractal->per_bits -= 2;
-		mandelbrot(fractal);
+		fractal->prb -= 1;
 	}
+	else if (key == 124 || key == 123 || key == 125 || key == 126)
+		move_arr(key, fractal);
+	mlx_clear_window(fractal->mlx_ptr, fractal->win_ptr);
+	ft_launch_fractol(fractal);
 	return (0);
+}
+
+void move_arr(int key, t_glob *fr)
+{
+	double	re;
+	double	im;
+
+	im = fr->max.im - fr->min.im;
+	re = fr->max.re - fr->min.re;
+	if (key == 124)
+	{
+		fr->max.re -= re * 0.1;
+		fr->min.re -= re * 0.1;
+	}
+	if (key == 123)
+	{
+		fr->max.re += re * 0.1;
+		fr->min.re += re * 0.1;
+	}
+	if (key == 126)
+	{
+		fr->max.im -= im * 0.1;
+		fr->min.im -= im * 0.1;
+	}
+	if (key == 125)
+	{
+		fr->max.im += im * 0.1;
+		fr->min.im += im * 0.1;
+	}
+	mlx_clear_window(fr->mlx_ptr, fr->win_ptr);
+	ft_launch_fractol(fr);
 }
 
 void close_window(int key)
