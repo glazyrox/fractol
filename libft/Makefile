@@ -6,7 +6,7 @@
 #    By: rgwayne- <rgwayne-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/09/04 09:56:35 by rgwayne-          #+#    #+#              #
-#    Updated: 2019/09/01 22:05:48 by rgwayne-         ###   ########.fr        #
+#    Updated: 2019/09/14 17:36:51 by rgwayne-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -81,13 +81,13 @@ FLAGS = -Wall -Wextra -Werror
 all: $(NAME)
 
 $(NAME):
-	gcc -g $(FLAGS) -c $(SRC) -I includes/
-	ar -rc $(NAME) *.o
+	@gcc -g $(FLAGS) -c $(SRC) -I includes/
+	@ar -rc $(NAME) *.o
 
 clean:
-	rm -f *.o
+	@rm -f *.o
 
 fclean: clean
-	rm -f $(NAME)
+	@rm -f $(NAME)
 
 re: fclean all
