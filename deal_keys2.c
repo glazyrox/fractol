@@ -1,24 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   errors.c                                           :+:      :+:    :+:   */
+/*   deal_keys2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rgwayne- <rgwayne-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/08 15:00:48 by rgwayne-          #+#    #+#             */
-/*   Updated: 2019/09/14 16:13:34 by rgwayne-         ###   ########.fr       */
+/*   Created: 2019/09/14 16:23:36 by rgwayne-          #+#    #+#             */
+/*   Updated: 2019/09/14 16:27:37 by rgwayne-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-int	ft_exit(int flag)
+void	move_arr2(int key, t_glob *fr)
 {
-	if (flag == 1)
-		ft_putendl("usage: ./fractal [mandelbrot, julia, ship] ¯\\_(ツ)_/¯");
-	if (flag == 2)
-		ft_putendl("troubles with allocate");
-	if (flag == 3)
-		ft_putendl("Will be soon...");
-	exit(0);
+	double	re;
+	double	im;
+
+	im = fr->max.im - fr->min.im;
+	re = fr->max.re - fr->min.re;
+	if (key == 126)
+	{
+		fr->max.im -= im * 0.1;
+		fr->min.im -= im * 0.1;
+	}
+	if (key == 125)
+	{
+		fr->max.im += im * 0.1;
+		fr->min.im += im * 0.1;
+	}
+	mlx_clear_window(fr->mlx_ptr, fr->win_ptr);
+	ft_launch_fractol(fr);
 }

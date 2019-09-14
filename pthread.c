@@ -6,7 +6,7 @@
 /*   By: rgwayne- <rgwayne-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/13 15:06:51 by rgwayne-          #+#    #+#             */
-/*   Updated: 2019/09/13 18:02:44 by rgwayne-         ###   ########.fr       */
+/*   Updated: 2019/09/14 15:54:12 by rgwayne-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void		ft_launch_fractol(t_glob *fr)
 	{
 		pthread_join(threads[i], NULL);
 	}
-	mlx_put_image_to_window(fr->mlx_ptr, fr->win_ptr, fr->img.img_ptr, 0, 0);
+	mlx_put_image_to_window(fr->mlx_ptr, fr->win_ptr, fr->i.p, 0, 0);
 	free(threads);
 	free(data);
 }

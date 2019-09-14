@@ -6,16 +6,16 @@
 /*   By: rgwayne- <rgwayne-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/08 15:48:51 by rgwayne-          #+#    #+#             */
-/*   Updated: 2019/09/13 19:16:19 by rgwayne-         ###   ########.fr       */
+/*   Updated: 2019/09/14 16:24:59 by rgwayne-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-int mouse_keys(int key, int x, int y, t_glob *fr)
+int		mouse_keys(int key, int x, int y, t_glob *fr)
 {
-	double re;
-	double im;
+	double	re;
+	double	im;
 
 	im = ((fr->max.im - fr->min.im) * 0.1);
 	re = ((fr->max.re - fr->min.re) * 0.1);
@@ -23,14 +23,14 @@ int mouse_keys(int key, int x, int y, t_glob *fr)
 	{
 		fr->min.im += im * (1 - (double)y / HT);
 		fr->max.im -= im * ((double)y / HT);
-		fr->min.re += im * ((double)x/ WT);
+		fr->min.re += im * ((double)x / WT);
 		fr->max.re -= im * (1 - (double)x / WT);
 	}
 	if (key == 5)
 	{
 		fr->min.im -= im * (1 - (double)y / HT);
 		fr->max.im += im * ((double)y / HT);
-		fr->min.re -= im * ((double)x/ WT);
+		fr->min.re -= im * ((double)x / WT);
 		fr->max.re += im * (1 - (double)x / WT);
 	}
 	mlx_clear_window(fr->mlx_ptr, fr->win_ptr);
@@ -38,16 +38,16 @@ int mouse_keys(int key, int x, int y, t_glob *fr)
 	return (0);
 }
 
-void mouse_move(int x, int y, t_glob *fr)
+void	mouse_move(int x, int y, t_glob *fr)
 {
 	fr->julia = init_complex(
-    4 * ((double)x / WT - 0.5),
-    4 * ((double)(HT - y) / HT - 0.5));
+			4 * ((double)x / WT - 0.5),
+			4 * ((double)(HT - y) / HT - 0.5));
 	mlx_clear_window(fr->mlx_ptr, fr->win_ptr);
 	ft_launch_fractol(fr);
 }
 
-int other_keys(int key, t_glob *fractal)
+int		other_keys(int key, t_glob *fractal)
 {
 	if (key == 6)
 	{
@@ -59,13 +59,13 @@ int other_keys(int key, t_glob *fractal)
 	}
 	if (key == 8)
 	{
-		fractal->per_bits += 2;
-		fractal->prb += 1;
+		fractal->b += 2;
+		fractal->pb += 1;
 	}
 	if (key == 9)
 	{
-		fractal->per_bits -= 2;
-		fractal->prb -= 1;
+		fractal->b -= 2;
+		fractal->pb -= 1;
 	}
 	else if (key == 124 || key == 123 || key == 125 || key == 126)
 		move_arr(key, fractal);
@@ -74,7 +74,7 @@ int other_keys(int key, t_glob *fractal)
 	return (0);
 }
 
-void move_arr(int key, t_glob *fr)
+void	move_arr(int key, t_glob *fr)
 {
 	double	re;
 	double	im;
@@ -91,21 +91,13 @@ void move_arr(int key, t_glob *fr)
 		fr->max.re += re * 0.1;
 		fr->min.re += re * 0.1;
 	}
-	if (key == 126)
-	{
-		fr->max.im -= im * 0.1;
-		fr->min.im -= im * 0.1;
-	}
-	if (key == 125)
-	{
-		fr->max.im += im * 0.1;
-		fr->min.im += im * 0.1;
-	}
+	if (key == 126 || key == 125)
+		move_arr2(key, fr);
 	mlx_clear_window(fr->mlx_ptr, fr->win_ptr);
 	ft_launch_fractol(fr);
 }
 
-void close_window(int key)
+void	close_window(int key)
 {
 	if (key == 53)
 		exit(0);
