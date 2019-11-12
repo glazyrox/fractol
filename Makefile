@@ -6,7 +6,7 @@
 #    By: rgwayne- <rgwayne-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/14 16:58:23 by rgwayne-          #+#    #+#              #
-#    Updated: 2019/09/14 17:44:38 by rgwayne-         ###   ########.fr        #
+#    Updated: 2019/09/14 17:49:16 by rgwayne-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,6 +42,7 @@ $(OBJ_DIR):
 clean:
 	@make -C libft/ clean
 	@rm -rf *.o
+	@rm -rf $(OBJ_DIR)
 
 fclean: clean
 	@make -C libft/ fclean

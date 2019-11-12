@@ -1,0 +1,7 @@
+Its my fractol
+FAQ:
+1) Use Make file. Just use 'make' (do it in dir)
+2) ./fractol "name of fractol"
+3) Zoom at arrow (3-buttom of mouse)
+4) Change color at 'C' and 'V'
+5) Move it at arrows of keybord
