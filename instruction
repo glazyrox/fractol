@@ -1,6 +1,6 @@
 Its my fractol
 FAQ:
-1) Use Make file. Just use 'make' (do it in dir)
+1) Use Make file. Just use 'make' or 'make re' (do it in dir) !!!ONLY FOR MACOS!!!! (check step 2)
 2) ./fractol "name of fractol"
 3) Zoom at arrow (3-buttom of mouse)
 4) Change color at 'C' and 'V'
